@@ -1,0 +1,510 @@
+Return-path: <ricardo.a.munoz@navy.mil>
+Original-recipient: rfc822;ricardoxy@icloud.com
+Received: from ms11p00im-qufv17090701.me.com by pv41p47ic-tydg07071101 (mailgateway 2016B153)
+	with SMTP id 57b03751-2abf-49a4-8909-96b263c5d017 
+	for <ricardoxy@icloud.com>; Tue, 1 Sep 2020 14:33:12 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 57b03751-2abf-49a4-8909-96b263c5d017
+Received: from USAT19PA25.eemsg.mail.mil (USAT19PA25.eemsg.mail.mil [214.24.22.199])
+	by ms11p00im-qufv17090701.me.com (Postfix) with ESMTPS id A23478C01B8
+	for <ricardoxy@icloud.com>; Tue,  1 Sep 2020 14:33:08 +0000 (UTC)
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=navy.mil
+x-dmarc-info: pass=pass; dmarc-policy=none; s=r1; d=r1
+x-dmarc-policy: v=DMARC1; p=none; sp=none; rua=mailto:DMARC_REPORTING@navy.mil,mailto:DMARC_reports@mail.mil
+Authentication-Results:dkim-verifier.icloud.com;
+	dkim=pass (2048-bit key) header.d=navy.mil header.i=@navy.mil header.b=EdDWpiDe
+Authentication-Results:dkim-verifier.icloud.com;
+	dkim=fail reason="signature verification failed - bh mismatch" (1024-bit key) header.d=usnavycloud.onmicrosoft.com header.i=@usnavycloud.onmicrosoft.com header.b=jY2Iv5Sb
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of ricardo.a.munoz@navy.mil designates 214.24.22.199 as permitted sender) smtp.mailfrom=ricardo.a.munoz@navy.mil
+Received-SPF: pass (spf.icloud.com: domain of ricardo.a.munoz@navy.mil designates 214.24.22.199 as permitted sender) receiver=p00-spfmilter-5f888784bf-ppjml; client-ip=214.24.22.199; helo=USAT19PA25.eemsg.mail.mil; envelope-from=ricardo.a.munoz@navy.mil
+X-EEMSG-check-017: 144280891|USAT19PA25_ESA_OUT06.csd.disa.mil
+X-EEMSG-Attachment-filename: smime.p7s
+X-EEMSG-Attachment-filesize: 5420
+X-IronPort-AV: E=Sophos;i="5.76,379,1592870400"; 
+   d="p7s'?scan'208,217";a="144280891"
+Received: from naeanrfkax27.nmci.navy.mil (HELO NAEANRFKAX27o.NADSUSEA.NADS.NAVY.MIL) ([205.85.33.193])
+  by USAT19PA25.eemsg.mail.mil with ESMTP/TLS/DHE-RSA-AES256-SHA256; 01 Sep 2020 14:33:07 +0000
+DKIM-Signature: v=1; a=rsa-sha256; d=navy.mil; s=dkim1; c=relaxed/simple;
+	q=dns/txt; i=@navy.mil; t=1598970787; x=1601562787;
+	h=From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=gfHtizOejeZq1yi2KIWrdo0g5ZQ+mcxidOov/tEmpIk=;
+	b=EdDWpiDef2u3oMa9Ckkl9/fU1HQojGQFrrAG8YF/IT6ozt8SVjgtfeeNzASRmyk7
+	R1A+zunHpu8XZebwkGALK7wXmmQ5Lk/2hLGhFFtd8f++mHNpw21wvjutc8NI92Z1
+	cUVOkwDC46ZRtMOeVBafU046pEgYI7+WvBFYrsaiwHBLRG46gsr4gukcx/XPsvQj
+	91PjvEuU173rP28HvlYPCMu14SekakygN4ditY64MNiWtSNnjbBJ3tmImY/MG84o
+	++epwKnBJt0Z/VO0hkcqBshKo75HeyPMMf9L3iIAELXCcTaBsJAAg200ckwdPejF
+	5KYFthcz8Lki7QnYT1f+yA==;
+X-AuditID: cd5521c0-b7b37a8000007980-11-5f4e598c0d73
+Received: from NAWESDNIXH54V.nadsuswe.nads.navy.mil (Unknown_Domain [205.85.33.242])
+	(using TLS with cipher AES128-SHA256 (128/128 bits))
+	(Client did not present a certificate)
+	by NAEANRFKAX27o.NADSUSEA.NADS.NAVY.MIL (Symantec Messaging Gateway) with SMTP id 92.EC.31104.C895E4F5; Tue,  1 Sep 2020 10:24:12 -0400 (EDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector5501; d=microsoft.com; cv=none;
+ b=KbyNPo+VapbYA6hvz+EOtaD4gwzzMXYQIrmA4JPjzZIkXklhRHLJjP5CNruNnB4hJSL5Jcb+G5yLyD05zLv7bk6GDnNMkRVNSvzKhFDTsfwZDwKCR1aAcW7TW3a1LdEaLiKqpUtgacwu8NpMBj6Mh72YfQWvr7mZM2eDZ87RC0Gh0bYeJutN5qkNWRwezJW5RjSO/BBRspO0ifxrroaOiCSGE92ZYYwHI4x5RJw1E6nazVjcDFRsDUm5u3wvhsatkriDz0hF0DAKmO5PtaJO8P5KhZG0Et9wSL7+ssmBqOzARtxUN6j4Vej3Bio+MgrOtL9EZ4uv7f4RZ8+DN9f5fQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector5501;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gdhEFuwQvkxF9iWtQIb/UUypmAOFF/nrV+HIRSpCFP8=;
+ b=UaeEYcyP0HPiC/5FxFbx4hZxwT/udlm+byNGAyKapuWPmfR/GItrQ0w4T350TZQpr/X1tvKDusYltPyNhcu6Cg42ivHXhj5FKIPHazBsfuKUimym9oYXtjFjzWkhUtBhkffdUq/EiUk2fqlWQLQgizZxcOlPzIcxTMjXQt+zNsaMgE2hG6GzGzTxGjwnvAlBZm0tcLaz5cYEqcS2Ep64SCO9eGkKBHHEW7DSPQERmyHhVyEBAdAhIA7UQvvWYl+r9xV856OHi0+7bBeEwahxUGx8dDH0TFgB1ufKXQWeTSIlupc1fRu5TKj1WSC/qte+QdT6L9kMP8PxdYm3hf7VOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=navy.mil; dmarc=pass action=none header.from=navy.mil;
+ dkim=pass header.d=navy.mil; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usnavycloud.onmicrosoft.com; s=selector1-usnavycloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gdhEFuwQvkxF9iWtQIb/UUypmAOFF/nrV+HIRSpCFP8=;
+ b=jY2Iv5SbjeDVHtCpEi9gnrT8JAfOFQzFTHHH2817geCQbUoS01Kx8G7LoEnCZSxkUDAj28xjvV1UkAi2A8mlOk+eUcWjwLENKMGwWTdF8MGNf4pUgjHi0H9C/FVdq36Tp5DenfVGixTT+kXpIw76jQOrOWQZsGwMoWB7+qP39eg=
+From: "Munoz, Ricardo A SSGT USAF (US)" <ricardo.a.munoz@navy.mil>
+To: "ricardoxy@icloud.com" <ricardoxy@icloud.com>
+Subject: FW: 31 Aug - 4 Sep
+Thread-Topic: 31 Aug - 4 Sep
+Thread-Index: AdZ/qQJUbcSfMFhXSX66+vkhTSQDjAAwnNQw
+Date: Tue, 1 Sep 2020 14:23:32 +0000
+Message-ID: <DM2P111MB017193F01D21B2874EEB2482DE2E0@DM2P111MB0171.NAMP111.PROD.OUTLOOK.COM>
+References: <SN5P111MB04611DAB027E37FFB8DBF69CDD510@SN5P111MB0461.NAMP111.PROD.OUTLOOK.COM>
+In-Reply-To: <SN5P111MB04611DAB027E37FFB8DBF69CDD510@SN5P111MB0461.NAMP111.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+x-originating-ip: [140.17.26.46]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a01c9cd9-4012-457e-4dfc-08d84e829b32
+x-ms-traffictypediagnostic: DM2P111MB012:
+x-microsoft-antispam-prvs: <DM2P111MB012F830C1888FB58AC2183CDE2E0@DM2P111MB012.NAMP111.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM2P111MB0171.NAMP111.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(4636009)(366004)(71200400001)(66476007)(66446008)(64756008)(66946007)(76116006)(5660300002)(66616009)(66556008)(956004)(52536014)(9686003)(2906002)(6916009)(7696005)(6506007)(498600001)(26005)(8936002)(53546011)(55016002)(8676002)(186003)(86362001)(33656002)(99936003);DIR:OUT;SFP:1101;
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature";
+	micalg=SHA1; boundary="----=_NextPart_000_0257_01D68049.EFF950B0"
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM2P111MB0171.NAMP111.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: a01c9cd9-4012-457e-4dfc-08d84e829b32
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2020 14:23:32.8066
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 1dd9fe3b-7683-417e-a63f-2d568a708a0c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM2P111MB012
+X-Brightmail-Tracker: H4sIAAAAAAAAA03SfVAMcRgH8PndbtsWZ35W3DNJUWmG6uhI3qZxJgndeUleykyOVpma4orU
+	ZEThXFM01OhE0YubHHXU5H1yLkOIvF5NzXRETuWlQYjj7vaa6Z+dz/N9nn12fztLE0yHgyu9
+	PSmVlSfJEj0pZ/Jx5JQB//JoaczMf/c85r6+e5FchMLOFzWhVSjKeWEsm7h9NyufEbzZOb7m
+	muOOsny05/uTPiILGfYpEU0Dng36l9FK5EwzWM+D25oWZC0QriJg8IyCxxXNJORr79s7GgQf
+	K48R1oLENwi4dLvFMuZEU3gxVNY/crDaBQdAc+czWz4OT4Sh8kpHLneDhkKTfUYE5Wcv23IS
+	e8OH0i+2nI+jwaxvJa1mLFbrNDY74U3wo/cmshrhCTDYrLHtJ7AA2rtLbQbsAsbWhxTn8WB6
+	a3bg3joXQd3DgwTXmAz5+gG7J8Gz0lzEWQLv20yOnKeBtm3A7nj4rFWTnH3A0Kew3+sO1XlG
+	e+4GXYYGyvowwPUEHNAbKO4Le4NZl27NCZyHQFt0hOROORYeFHeTx9A01YhDqEbOqUbMcUPR
+	8O2ECqksewkshENaxMUe0NBfQnD2h389w/aFqrO9di+Ak7/vUJynwIlcoyPnQOht+orK0Khq
+	5CUVLxFL14SuEG8QBQml4pCIyIglYhssl3UbhZJl4ZcR99M1XkVV9z8LdYhHIx3ytix6U3vh
+	KXIlk5KTWE8XfrFBEsPwY2XpGaw8OUa+K5FN0aGJNOkp4Csly2IYHCdLZRNYdgcrH+7yaCfX
+	LN6F/qFU5vmnjJW16kDyPPPCb87aWcL91w/lzaf3Rc4+Hpb2s0YyuCVg4LCg53q/6mRdMU9p
+	EhipJwqvgzsTVPz4yJC4RDLorXt4gYrXt+mc+9+I44Jy39pLTFOFqzSNV9HHGAvwGHHsUpdt
+	6uRTf9YPTSp7M74jtC2Bznl1Jr23sb7UZ/meX0H1k1v+zAm7UqPICjZubfRVFnaX+HWJHEJf
+	rviyut3nx+lde2eKPvV04o+ib1TmApB3VX8/emre0Yzup9nT61qzM9WV80Kar71//Tx4dOqL
+	nKh3r1Kwxhznn2lS1F6pOHxz7lfK55bfGnO4dG9Bp8aL7Xi32ndqVEnIxgZPMiVeFjCdkKfI
+	/gOPQSEh7wMAAA==
+X-MANTSH: 1TEIXR1kbG1oaGkNHB1tfTFwbGhodGx4aGxEKTEMXGxoEGxsYBBsbGgQeGRAbHho
+ fGhEKTFkXGxoaHxEKWUQXbF16GUVSWm9yGWkRCllNF25PRkNcT1gRCl9ZFxgZHxEKX00XZEVET
+ xEKWUkXHR9xGwYbHxp3BhseHgYaBhoGBxseBhpxGhAadwYaBhoGGRoGGgYaBhpxGhAadwYaEQp
+ ZXhdsbHkRCkNOF09HT0ZoQx5bHB1hfn8SGGthbRJJbltQRB5ZZG9GZhlsEQpYXBcZBBoEHhkHH
+ RwSSx0fH0kFGxoEEwQbHQQYGBoQGx4aHxoRCl5ZF31Ca2hpEQpNXBcHGBIRCkxaF2hpTWtrEQp
+ MRhdsTWsRCkNaFxgbHgQYHgQYGAQbExMRCkJeFxsRCkReFxgRCkJcFxsRCl5OFxsRCkJLF2ZjQ
+ WBEcnJwXGBQEQpCSRdmY0FgRHJycFxgUBEKQkUXYX9cAUhlZFhJZWERCkJOF2ZjQWBEcnJwXGB
+ QEQpCTBdnYWUfXl5of3tgExEKQmwXYUBoeFxHSG0TSFgRCkJAF2l4YFwZbW5IZl55EQpCWBdje
+ V9CHXMTfWNJExEKTV4XBxsRClpYFxsRCnBnF2ZgX0FMTVhtfV1rEAcZGhEKcGgXYV9/H11IUmt
+ EZVAQBxkaEQpwaBdle0BQR39fHgV+TRAHGRoRCnBoF25nc3BvTUcefU1+EAcZGhEKcGgXbEtae
+ 01TSXlrRQEQBxkaEQpwaBduWmQTQFtHQ3JvaRAHGRoRCnBnF2VgeRMSY0x5fUYZEAcZGhEKcGs
+ XaQFTZ15yAVh/XBsQBxkaEQpwSxdsTmh4aG1vH2NhaBAfHREKcGwXbXh+ZnoSGkIfEgEQBxkaE
+ QpwQxd6Y0J8SRpgRmNmWxAfGxEKbX4XBxsRClhNF0sR
+X-CLX-Shades: Deliver
+x-icloud-message-id: bc0edb47aa383aff31effa8307f7669cc22a145222b4a325d76e2b616cc0f9ce
+X-ICL-INFO: GAtbVUseBVFGSVVESAMGUldZCh4MXUMRSFsIVVhDQ19XFwkZHRIWBxFERAURU1cQERZIFlZdQwwa
+ AyYZGUZPTBgQClVYVlJfVxcHAQEeWwsZW0YEEUALQEdIUllKBBhQR1dXTkESFgoQFQlKWmVlIyFI
+ Xyc5AgNMEBwLBB8eWwMcFUgaEVwUQgUNFEpaZWUjIUhfJzkCA0wQHAsEHx5bAxwVSBoRXBRCER1b
+ VRZRQBtbFA8bWhBbCxFEREs8fQQyREhXOjoAB1VEQFUxSAFyUEQ7VE9PBHMnN0tST0p0c1AwSSYz
+ NQJmU0RIKzVIAQFTWzcnOigBB1NbKTQ4PB55NyE1KTgzHnUtOEdEVwpTC0AHEAUWClRZGgw5DxQU
+ X0MGWxoJGlo=
+X-ICL-SCORE: 3.3330330300
+
+------=_NextPart_000_0257_01D68049.EFF950B0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_001_0258_01D68049.EFF950B0"
+
+
+------=_NextPart_001_0258_01D68049.EFF950B0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+ 
+
+ 
+
+From: Emerson, David R CIV USN NSWC CD CRANE IN (USA)
+<david.r.emerson@navy.mil> 
+Sent: Monday, August 31, 2020 12:14 PM
+To: Campos, Javier I CIV (USA) <javier.i.campos@navy.mil>; Munoz, Ricardo A
+SSGT USAF (US) <ricardo.a.munoz@navy.mil>
+Subject: 31 Aug - 4 Sep
+
+ 
+
+All,
+
+ 
+
+My schedule is pretty busy this week.  I'll be in the office Tuesday,
+Wednesday and Thursday.  Let me know if you guys can see my calendar.  You
+might not be able to see details, but at least you should at least see when
+I have meetings.  If you guys run into any problems just through something
+on my calendar, I'll see what I can do.
+
+ 
+
+Javier,
+
+ 
+
+I've just pushed the random image generation code.  It's located in the
+include folder that should now be there.  Go ahead and rename the Header.h
+file to something more meaningful and then move it to the include folder.
+This is where all the *.h, *.hpp files should reside.
+
+ 
+
+I've also added the blur_process.pptx to the repo.  I've added the process
+for extracting parts of the random image and the definition of the function.
+You can add the function to the header file that contains blur_process or
+you can create an entirely new header file.  That's up to you.
+
+ 
+
+You should be able to take the output of generate_random_overlay and
+substitute the outputs for the ransom shape and mask generation.  To
+actually generate the mask you can look at the code the generate the random
+image and use the exact same process except you only need to make a black
+and white image.  You may want to make a function of that process as well.
+
+ 
+
+Rick,
+
+ 
+
+Any luck figuring out the odd behavior of the serial output?  
+
+ 
+
+For the serial Rx side of things you'll need to configure a few registers to
+get the interrupts right.
+
+For the interrupt control (INTCON) you'll need to enable the global and
+peripheral interrupts.  You'll also need to enable the individual EUSART RX
+Interrupt bit as well and clear the interrupt flag.  I would suggest
+creating a function that does this - look at the config file.
+
+ 
+
+I'll generate a process flow diagram for how the interrupts are supposed to
+work.  You'll need several global variables to track things since you can't
+pass things in/out of an interrupt function.
+
+ 
+
+The interrupt function has a very specific format. The interrupt keyword
+tells MPLAB that this is where interrupts will be handled.  The "ISR" is the
+actual name of the function and can be pretty much any valid function name.
+
+
+ 
+
+void interrupt ISR(void)
+
+{
+
+ 
+
+}
+
+ 
+
+This function can be placed at the top of the code right above main.  It
+shouldn't need a seprate function definition like most other function do in
+C.  This function handles ALL interrupts that are enabled so as a good
+practice you'll always want to check which of the enable interrupts caused
+the ISR to trigger (in this case RC1IF).
+
+ 
+
+This should get you started.
+
+ 
+
+Thanks,
+
+Dave
+
+ 
+
+ 
+
+ 
+
+
+------=_NextPart_001_0258_01D68049.EFF950B0
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US =
+link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
+class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p><p =
+class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p><div><div =
+style=3D'border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in'><p class=3DMsoNormal><b>From:</b> Emerson, David R CIV USN NSWC =
+CD CRANE IN (USA) &lt;david.r.emerson@navy.mil&gt; <br><b>Sent:</b> =
+Monday, August 31, 2020 12:14 PM<br><b>To:</b> Campos, Javier I CIV =
+(USA) &lt;javier.i.campos@navy.mil&gt;; Munoz, Ricardo A SSGT USAF (US) =
+&lt;ricardo.a.munoz@navy.mil&gt;<br><b>Subject:</b> 31 Aug - 4 =
+Sep<o:p></o:p></p></div></div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>All,<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>My schedule =
+is pretty busy this week.&nbsp; I&#8217;ll be in the office Tuesday, =
+Wednesday and Thursday.&nbsp; Let me know if you guys can see my =
+calendar&#8230;&nbsp; You might not be able to see details, but at least =
+you should at least see when I have meetings.&nbsp; If you guys run into =
+any problems just through something on my calendar, I&#8217;ll see what =
+I can do&#8230;<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Javier,<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>I&#8217;ve =
+just pushed the random image generation code.&nbsp; It&#8217;s located =
+in the include folder that should now be there.&nbsp; Go ahead and =
+rename the Header.h file to something more meaningful and then move it =
+to the include folder.&nbsp; This is where all the *.h, *.hpp files =
+should reside.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>I&#8217;ve =
+also added the blur_process.pptx to the repo.&nbsp; I&#8217;ve added the =
+process for extracting parts of the random image and the definition of =
+the function.&nbsp; You can add the function to the header file that =
+contains blur_process or you can create an entirely new header =
+file.&nbsp; That&#8217;s up to you.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>You should =
+be able to take the output of generate_random_overlay and substitute the =
+outputs for the ransom shape and mask generation.&nbsp; To actually =
+generate the mask you can look at the code the generate the random image =
+and use the exact same process except you only need to make a black and =
+white image.&nbsp; You may want to make a function of that process as =
+well.<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Rick,<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Any luck =
+figuring out the odd behavior of the serial output?&nbsp; =
+<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>For the serial Rx side of things you&#8217;ll need to =
+configure a few registers to get the interrupts right.<o:p></o:p></p><p =
+class=3DMsoNormal>For the interrupt control (INTCON) you&#8217;ll need =
+to enable the global and peripheral interrupts.&nbsp; You&#8217;ll also =
+need to enable the individual EUSART RX Interrupt bit as well and clear =
+the interrupt flag.&nbsp; I would suggest creating a function that does =
+this &#8211; look at the config file.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>I&#8217;ll =
+generate a process flow diagram for how the interrupts are supposed to =
+work.&nbsp; You&#8217;ll need several global variables to track things =
+since you can&#8217;t pass things in/out of an interrupt =
+function.<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>The interrupt function has a very specific =
+format&#8230; The interrupt keyword tells MPLAB that this is where =
+interrupts will be handled.&nbsp; The &#8220;ISR&#8221; is the actual =
+name of the function and can be pretty much any valid function =
+name.&nbsp; <o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>void interrupt ISR(void)<o:p></o:p></p><p =
+class=3DMsoNormal>{<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>}<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>This =
+function can be placed at the top of the code right above main.&nbsp; It =
+shouldn&#8217;t need a seprate function definition like most other =
+function do in C.&nbsp; This function handles ALL interrupts that are =
+enabled so as a good practice you&#8217;ll always want to check which of =
+the enable interrupts caused the ISR to trigger (in this case =
+RC1IF).<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>This should get you started.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Thanks,<o:p></o:p></p><p =
+class=3DMsoNormal>Dave<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p></div></body></html>
+------=_NextPart_001_0258_01D68049.EFF950B0--
+
+------=_NextPart_000_0257_01D68049.EFF950B0
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIIR7zCCA3Mw
+ggJboAMCAQICAQEwDQYJKoZIhvcNAQELBQAwWzELMAkGA1UEBhMCVVMxGDAWBgNVBAoTD1UuUy4g
+R292ZXJubWVudDEMMAoGA1UECxMDRG9EMQwwCgYDVQQLEwNQS0kxFjAUBgNVBAMTDURvRCBSb290
+IENBIDMwHhcNMTIwMzIwMTg0NjQxWhcNMjkxMjMwMTg0NjQxWjBbMQswCQYDVQQGEwJVUzEYMBYG
+A1UEChMPVS5TLiBHb3Zlcm5tZW50MQwwCgYDVQQLEwNEb0QxDDAKBgNVBAsTA1BLSTEWMBQGA1UE
+AxMNRG9EIFJvb3QgQ0EgMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKnsFHKK6Etw
+o9oQA4Sm+6c2DSo6Uha/MBVShgVHIM+qps11xGRu7/FgI8sKZkCutMhoKgBRaEk36VkyTZW8Qyfp
+QI06EM4UvEMYofnezOeFdnNeGBojW70/H/LtjRnMA9FApI+nIAJMJ1p5NvajNyGOAFoGFsrTVZZv
+MSm7cg7L4khR8tQ3pDXWb+4Xs7EGqwsZhugjbTEbKHhlxd5iUrzBfevuoF1UBPuyyyuyI1SRgkzw
+v7p0QDsMBEWAZ1zF66JXwxp/Ci29f7ncwZmwyAfkDIY2lDolL/J95pc8G5S0l1kGyTrkC9nq6fw7
+czRv/eeY5POhwpBfHPU/LtcZ038CAwEAAaNCMEAwHQYDVR0OBBYEFGyKlKJ3sYByHYF6Fqry3M5m
+7kXAMA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQCf
+caTAtpbSgEOgSOkfdgT5xTytZhhYY5vDtuhoioVaQmYStNLmi4h/h/SY9ajGCckf8Cwf7IK49KVH
+OMEzK99Mfpq+Cwuxyw98UCgQz4qNoum6rIbX1LGTXyKPlgW0Tgx1kX3T8ueUwpQUdk+PDKsQh1gy
+hQd1hhILXupTtArITISSH+voQYY8uvROQUrRbFhHQcOGWvLu6fKYJ4LqLjbW+AZegvGgUpNECbrS
+qRlaWKOoXSBtT2T4MIcbkBNIgc3KkMcNwdSYP47yDldoMxKOmQmx8OT2EPQ28km96qM4yFZBI4Oa
+36EbNXzrP0Gz9W9LOl6ub5N2mNLxmZ1FxI5yMIIEtDCCA5ygAwIBAgIDAhM3MA0GCSqGSIb3DQEB
+CwUAMF0xCzAJBgNVBAYTAlVTMRgwFgYDVQQKEw9VLlMuIEdvdmVybm1lbnQxDDAKBgNVBAsTA0Rv
+RDEMMAoGA1UECxMDUEtJMRgwFgYDVQQDEw9ET0QgRU1BSUwgQ0EtNTkwHhcNMjAwNTI5MDAwMDAw
+WhcNMjMwNTI4MjM1OTU5WjB8MQswCQYDVQQGEwJVUzEYMBYGA1UEChMPVS5TLiBHb3Zlcm5tZW50
+MQwwCgYDVQQLEwNEb0QxDDAKBgNVBAsTA1BLSTEMMAoGA1UECxMDVVNOMSkwJwYDVQQDEyBNVU5P
+Wi5SSUNBUkRPLkFMRlJFRE8uMTI5MDk1NzQ1ODCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+ggEBALtX5khEDwtRUGng1NpJb9V/8ZhlRmS+iomXJkQu+IySq3EM8cLr3IOCG15mF+nAU3543Tjl
+jkrgcYBlvPrfxaYyNorkDyXOrNhZRanqeIu+zbv5a8E5oAqPgsXJ1VXawHM9Oia+YIL1YuVDFtOP
++jEamVKaAPOoHPNrk1KXAc0/vSZrhVA6M7ZIuHhWz+XOxE9rHDhGcy1CRNvCtirqNqTM095lBDeY
+XRiCX0TtYIIF7AngdhsZoK/UGsVoNdpuz96cLWdn/dL44DoAReXfatdXE16JccV0JK/pOB0JQQkv
+ZbheND2zV4HyK9vPNylXP4urOy6V45BENL2c1YpOIX0CAwEAAaOCAVwwggFYMB8GA1UdIwQYMBaA
+FHcUQaZdlSbQHf+VO2KM6re1XTuSMEIGA1UdHwQ7MDkwN6A1oDOGMWh0dHA6Ly9jcmwuZGlzYS5t
+aWwvY3JsL0RPREVNQUlMQ0FfNTlfRU5DUllQVC5jcmwwDgYDVR0PAQH/BAQDAgUgMBYGA1UdIAQP
+MA0wCwYJYIZIAWUCAQsnMB0GA1UdDgQWBBSmLeVJb2qc0XAh98VOkSZ/vHl83TBoBggrBgEFBQcB
+AQRcMFowNgYIKwYBBQUHMAKGKmh0dHA6Ly9jcmwuZGlzYS5taWwvc2lnbi9ET0RFTUFJTENBXzU5
+LmNlcjAgBggrBgEFBQcwAYYUaHR0cDovL29jc3AuZGlzYS5taWwwIwYDVR0RBBwwGoEYcmljYXJk
+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
+ODCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALcp87lhW5Ht4+MTKB70C+qzdLu8px8b
+bQWINQIRIhoeuwOX/HhfddcKiXAmbQ9Z0oFh7p/qsUWXm2i137hpKcS50u/tgkbWIxP1+WPkH/Pu
+jx8TKv4xoYD/+75HDjXaWKAgy9/Jz3ZgIWTl4Id0jywhWezqJFiB8U2trJSb46VwHds36Cg605oe
+CcnRZMRfU5A8PFQ/Tv3NnfuHOV8ZbjLpUH1zCCk9Yx9CbAJkpZTL7xMyZpatUFjxM9mU3A/3POFl
+60Bv/EUcBoNCGncRSogMNNtBY4jlQH0Xoo0BzGZvfFvy9n2ZaY8zcUNoL13biWngIR+3sODDPY/T
+8P3tuKECAwEAAaOCAaQwggGgMB8GA1UdIwQYMBaAFHcUQaZdlSbQHf+VO2KM6re1XTuSMD8GA1Ud
+HwQ4MDYwNKAyoDCGLmh0dHA6Ly9jcmwuZGlzYS5taWwvY3JsL0RPREVNQUlMQ0FfNTlfU0lHTi5j
+cmwwDgYDVR0PAQH/BAQDAgbAMBYGA1UdIAQPMA0wCwYJYIZIAWUCAQsqMB0GA1UdDgQWBBS9Men+
+iJzZ82rS1L/iz0WDAcUhzjBoBggrBgEFBQcBAQRcMFowNgYIKwYBBQUHMAKGKmh0dHA6Ly9jcmwu
+ZGlzYS5taWwvc2lnbi9ET0RFTUFJTENBXzU5LmNlcjAgBggrBgEFBQcwAYYUaHR0cDovL29jc3Au
+ZGlzYS5taWwwQwYDVR0RBDwwOoEYcmljYXJkby5hLm11bm96QG5hdnkubWlsoB4GCisGAQQBgjcU
+AgOgEAwOMTI5MDk1NzQ1OEBtaWwwGwYDVR0JBBQwEjAQBggrBgEFBQcJBDEEEwJVUzApBgNVHSUE
+IjAgBgorBgEEAYI3FAICBggrBgEFBQcDAgYIKwYBBQUHAwQwDQYJKoZIhvcNAQELBQADggEBAHWf
+V4Zf3CnISJIAkR2R56lct7gL7NPsAzyt3IkgcCaL0vD9tW5otNUIsbFob5VeblfbngEN/kd6XKky
+CS1q95tByFmevsf2GUyA2t+paTZOSCa1QPuu7IzEUUOUa2ix9N5maGtEASpl2VHjwt8KUQNMSgGN
+NL1Z3S6u/ClW1q1llxPi/Lyga/TqZ728fu9pfF22/mlTJ2Kzkk5n1XMy0d8nqcd+zPEVz/YIAsQg
+GncFg3MeowtjZMJ4A12H8KlEtaeV0z7AoUGGzXTaTI9ifEN2sAZOPgjDVeBZfw+F5wEq0wSIXODF
+3ZyPFIZF1zp/1HIOaySXS4c4a9U+B2DTQ7cxggL/MIIC+wIBATBkMF0xCzAJBgNVBAYTAlVTMRgw
+FgYDVQQKEw9VLlMuIEdvdmVybm1lbnQxDDAKBgNVBAsTA0RvRDEMMAoGA1UECxMDUEtJMRgwFgYD
+VQQDEw9ET0QgRU1BSUwgQ0EtNTkCAwITMDAJBgUrDgMCGgUAoIIBcDAYBgkqhkiG9w0BCQMxCwYJ
+KoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yMDA5MDExNDIzMzBaMCMGCSqGSIb3DQEJBDEWBBTd
+1rFc9xWuCXp58OnyKrPv43LEFjAlBgkqhkiG9w0BCQ8xGDCBFTAHBgUrDgMCGjAKBggqhkiG9w0D
+BzBzBgkrBgEEAYI3EAQxZjBkMF0xCzAJBgNVBAYTAlVTMRgwFgYDVQQKEw9VLlMuIEdvdmVybm1l
+bnQxDDAKBgNVBAsTA0RvRDEMMAoGA1UECxMDUEtJMRgwFgYDVQQDEw9ET0QgRU1BSUwgQ0EtNTkC
+AwITNzB1BgsqhkiG9w0BCRACCzFmoGQwXTELMAkGA1UEBhMCVVMxGDAWBgNVBAoTD1UuUy4gR292
+ZXJubWVudDEMMAoGA1UECxMDRG9EMQwwCgYDVQQLEwNQS0kxGDAWBgNVBAMTD0RPRCBFTUFJTCBD
+QS01OQIDAhM3MA0GCSqGSIb3DQEBAQUABIIBAH2rqiyQkheo8F6oNTrChemL4g3ObsaNoMsHIC0A
+nicSndhhLmm33efehRpDAY5nu9tmRAmjtAD3rYeIIKbRFhsgFDjIOuE32Q3CanuZ52qgHBgNAzKw
+tOpQE2qnXwwvuQXSgeZfHoabHrIt3Kjc71R6xpNKb2vG4ddV+4RmWmKfODZ4tDWDfRuUDHGXgACH
+eVAyKr96DOXAi9X+Dx3f4TscYqFMxSVmaW9rbA7lzFb5d6M5Rh4uNiNC3nA9DsvAbile43rDOzQk
+s++OQMUSPJK7uLDVO0dTluTzTAmYnlFaO9+rPrtWEDt6wyGZq/3ZtzAGIY/Te3bPLUn+6vckcCgA
+AAAAAAA=
+
+------=_NextPart_000_0257_01D68049.EFF950B0--
